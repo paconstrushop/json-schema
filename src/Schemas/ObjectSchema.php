@@ -18,6 +18,7 @@
 namespace Opis\JsonSchema\Schemas;
 
 use Opis\JsonSchema\{Helper, Keyword, ValidationContext, KeywordValidator};
+use Opis\JsonSchema\Info\DataInfo;
 use Opis\JsonSchema\Info\SchemaInfo;
 use Opis\JsonSchema\Errors\ValidationError;
 use Opis\JsonSchema\KeywordValidators\CallbackKeywordValidator;
@@ -109,12 +110,28 @@ class ObjectSchema extends AbstractSchema
      */
     protected function applyKeywords(array $keywords, ValidationContext $context): ?ValidationError
     {
+        $errors = [];
         foreach ($keywords as $keyword) {
             if ($error = $keyword->validate($context, $this)) {
-                return $error;
+                $errors[] = $error;
             }
         }
 
-        return null;
+        if ([] === $errors) {
+            return NULL;
+        }
+
+        if (1 === count($errors)) {
+            return $errors[0];
+        }
+
+        return new ValidationError(
+            'schema',
+            $context->schema(),
+            DataInfo::fromContext($context),
+            'The data must match schema: {data}',
+            ['data' => $context->currentData()],
+            $errors
+        );
     }
 }

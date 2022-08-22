@@ -1,0 +1,13 @@
+{
+  "$id": "file:///multi-error.json#",
+  "type": "object",
+  "properties": {
+    "a": {
+      "type": "string"
+    },
+    "b": {
+      "type": "string"
+    }
+  },
+  "required": ["a", "b"]
+}
