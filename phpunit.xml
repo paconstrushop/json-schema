@@ -10,6 +10,7 @@
             <file>./tests/StringTypeTest.php</file>
             <file>./tests/ArrayTypeTest.php</file>
             <file>./tests/ObjectTypeTest.php</file>
+            <file>./tests/MultiErrorTest.php</file>
             <file>./tests/MultipleTypesTest.php</file>
             <file>./tests/RefTest.php</file>
             <file>./tests/MapperTest.php</file>
